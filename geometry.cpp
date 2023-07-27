@@ -1193,6 +1193,7 @@ drawvec simplify_lines(drawvec &geom, int z, int detail, bool mark_tile_bounds, 
 }
 
 drawvec reorder_lines(drawvec &geom) {
+    return geom;
 	// Only reorder simple linestrings with a single moveto
 
 	if (geom.size() == 0) {
