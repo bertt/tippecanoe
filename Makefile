@@ -103,6 +103,7 @@ suffixes = json json.gz
 # %22 for quoted quote
 # %2f for /
 # %3a for :
+# %5f for _
 # %7b for {
 
 testargs = \
@@ -111,7 +112,8 @@ testargs = \
             $(subst %3a,:,\
                 $(subst %2f,/,\
                     $(subst %7b,'{',\
-                        $(subst _, ,$(1)))))))
+                        $(subst %5f,'_',\
+                            $(subst _, ,$(1))))))))
 
 %.json.check:
 	./tippecanoe -q -a@ -f -o $@.mbtiles $(call testargs,$(patsubst %.json.check,%,$(word 4,$(subst /, ,$@)))) $(foreach suffix,$(suffixes),$(sort $(wildcard $(subst $(SPACE),/,$(wordlist 1,2,$(subst /, ,$@)))/*.$(suffix)))) < /dev/null
